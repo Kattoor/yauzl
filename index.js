@@ -137,7 +137,7 @@ function fromRandomAccessReader(reader, totalSize, options, callback) {
       var comment = decodeStrings ? decodeBuffer(eocdrBuffer, 22, eocdrBuffer.length, false)
                                   : eocdrBuffer.slice(22);
 
-      if (!(entryCount === 0xffff || centralDirectoryOffset === 0xffffffff)) {
+      if (entryCount !== 0xffff || centralDirectoryOffset !== 0xffffffff) {
         return callback(null, new ZipFile(reader, centralDirectoryOffset, totalSize, entryCount, comment, options.autoClose, options.lazyEntries, decodeStrings, options.validateEntrySizes, options.strictFileNames));
       }
 
